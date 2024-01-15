@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "BaseMVVMAndroid"
 include(":app")
+include(":common")
