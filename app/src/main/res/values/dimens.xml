@@ -1,0 +1,39 @@
+<resources>
+    <!-- 边距和间距 -->
+    <dimen name="fab_margin">16dp</dimen> <!-- 用于悬浮按钮的边距 -->
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="margin_xxlarge">40dp</dimen> <!-- 较大的边距 -->
+    <dimen name="margin_xxxlarge">64dp</dimen> <!-- 超大的边距，适用于特殊布局 -->
+
+    <!-- 内边距 -->
+    <dimen name="padding_x_small">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_xlarge">32dp</dimen>
+
+    <!-- 按钮尺寸 -->
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_width">150dp</dimen>
+
+    <!-- 文本字体大小 -->
+    <dimen name="text_size_xx_small">8sp</dimen> <!-- 非常小的文本 -->
+    <dimen name="text_size_x_small">12sp</dimen> <!-- 小文本 -->
+    <dimen name="text_size_small">14sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen> <!-- 常规文本 -->
+    <dimen name="text_size_large">24sp</dimen>
+    <dimen name="text_size_xlarge">26sp</dimen>
+    <dimen name="text_size_xxlarge">32sp</dimen> <!-- 大文本 -->
+
+    <!-- 图标尺寸 -->
+    <dimen name="icon_small">24dp</dimen>
+    <dimen name="icon_medium">32dp</dimen>
+    <dimen name="icon_large">48dp</dimen>
+
+    <!-- RecyclerView 间距 -->
+    <dimen name="recyclerview_spacing">5dp</dimen> <!-- 用于 RecyclerView 项目之间的间距 -->
+    <dimen name="slideSpace30">30dp</dimen> <!-- 用于滑动布局的间距 -->
+</resources>
