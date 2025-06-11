@@ -1,19 +1,34 @@
 package com.zekewang.basemvvmandroid.ui.login
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.zekewang.basemvvmandroid.R
+import com.zekewang.basemvvmandroid.base.BaseBindingFragment
+import com.zekewang.basemvvmandroid.databinding.FragmentLoginBinding
+import com.zekewang.basemvvmandroid.ex.observeToast
+import com.zekewang.basemvvmandroid.ex.safeCollect
+import dagger.hilt.android.AndroidEntryPoint
 
-class LoginFragment : Fragment() {
+@AndroidEntryPoint
+class LoginFragment : BaseBindingFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+    private val viewModel: LoginViewModel by viewModels()
+
+    override fun initView(view: View, savedInstanceState: Bundle?) {
+        binding.tvLogin.setOnClickListener {
+            viewModel.login("admin", "123456")
+        }
+    }
+
+    override fun initData(savedInstanceState: Bundle?) {
+        observeToast(viewModel.toastFlow)
+
+        safeCollect(viewModel.loginSuccess) { success ->
+            if (success) {
+                findNavController().navigate(R.id.mainFragment)
+            }
+        }
     }
 }

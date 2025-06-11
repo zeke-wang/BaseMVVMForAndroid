@@ -1,25 +1,56 @@
 [versions]
-agp = "8.2.0"
-kotlin = "1.9.0"
-core-ktx = "1.12.0"
-appcompat = "1.6.1"
-material = "1.11.0"
-constraintlayout = "2.1.4"
-junit = "4.13.2"
-junit-ext = "1.1.5"
-espresso-core = "3.5.1"
+# plugin
+agp = "8.10.1"
+kotlin = "2.1.21"
 
+# base
+coreKtx = "1.12.0"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.1"
+material = "1.12.0"
+constraintlayout = "2.2.1"
+activity = "1.8.0"
+
+# other
+hilt = "2.56.2"
+ksp = "2.1.21-2.0.1"
+swiperefreshlayout = "1.1.0"
+retrofit = "2.9.0"
+okhttp3LoggingInterceptor = "4.9.0"
+navigationFragmentKtx = "2.7.6"
+navigationUiKtx = "2.7.6"
 
 [libraries]
-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+# base
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-junit-ext = { group = "androidx.test.ext", name = "junit", version.ref = "junit-ext" }
-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+# hilt
+hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+
+# retrofit
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3LoggingInterceptor" }
+
+# refresh
+swiperefreshlayout =  { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+
+# navigation
+navigation = { group="androidx.navigation", name = "navigation-fragment-ktx", version.ref= "navigationFragmentKtx" }
+navigationUi = { group="androidx.navigation", name="navigation-ui-ktx", version.ref="navigationUiKtx" }
 
 [plugins]
-androidApplication = { id = "com.android.application", version.ref = "agp" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

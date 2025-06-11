@@ -4,90 +4,95 @@
     android:id="@+id/login_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimary">
+    android:background="?attr/colorSecondary">
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_centerHorizontal="true"
-        android:contentDescription="@string/titleImageDesc"
+        android:contentDescription="@string/desc_login_logo_icon"
         android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.37"
+        app:layout_constraintHeight_percent="0.3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+    <com.google.android.material.card.MaterialCardView
+        style="?attr/materialCardViewFilledStyle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/rounded_top_white_background"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_xlarge"
+        android:backgroundTint="?attr/colorSurface"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.63"
+        app:layout_constraintHeight_percent="0.7"
         app:layout_constraintStart_toStartOf="parent">
 
-        <!-- Username Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username_til"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="?attr/colorPrimaryContainer"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.15">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_xl">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/username_et"
+            <!-- Username Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/username_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/enter_account"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:textColorHint="?attr/colorOnPrimaryContainer" />
-        </com.google.android.material.textfield.TextInputLayout>
+                app:endIconMode="clear_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.15"
+                app:startIconContentDescription="@string/desc_account_icon"
+                app:startIconDrawable="@drawable/ic_baseline_person_24">
 
-        <!-- Password Field -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_til"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
-            app:boxBackgroundColor="?attr/colorPrimaryContainer"
-            app:layout_constraintEnd_toEndOf="@+id/username_til"
-            app:layout_constraintStart_toStartOf="@+id/username_til"
-            app:layout_constraintTop_toBottomOf="@+id/username_til">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_account"
+                    android:inputType="text"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password_et"
+            <!-- Password Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_til"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password_label"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:textColor="?attr/colorOnPrimaryContainer"
-                android:textColorHint="?attr/colorOnPrimaryContainer" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginTop="@dimen/margin_md"
+                app:endIconMode="password_toggle"
+                app:layout_constraintEnd_toEndOf="@+id/username_til"
+                app:layout_constraintStart_toStartOf="@+id/username_til"
+                app:layout_constraintTop_toBottomOf="@+id/username_til"
+                app:startIconContentDescription="@string/desc_password_icon"
+                app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
-        <!-- Login Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/tv_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
-            android:text="@string/login_click"
-            app:layout_constraintEnd_toEndOf="@+id/password_til"
-            app:layout_constraintStart_toStartOf="@+id/password_til"
-            app:layout_constraintTop_toBottomOf="@+id/password_til" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/login_password"
+                    android:inputType="textPassword"
+                    android:maxLines="1" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Login Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/tv_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_lg"
+                android:text="@string/login"
+                app:layout_constraintEnd_toEndOf="@+id/password_til"
+                app:layout_constraintStart_toStartOf="@+id/password_til"
+                app:layout_constraintTop_toBottomOf="@+id/password_til" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
