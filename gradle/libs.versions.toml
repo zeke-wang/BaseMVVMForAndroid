@@ -21,6 +21,7 @@ retrofit = "2.9.0"
 okhttp3LoggingInterceptor = "4.9.0"
 navigationFragmentKtx = "2.7.6"
 navigationUiKtx = "2.7.6"
+datastore = "1.1.6"
 
 [libraries]
 # base
@@ -48,6 +49,9 @@ swiperefreshlayout =  { group = "androidx.swiperefreshlayout", name = "swiperefr
 # navigation
 navigation = { group="androidx.navigation", name = "navigation-fragment-ktx", version.ref= "navigationFragmentKtx" }
 navigationUi = { group="androidx.navigation", name="navigation-ui-ktx", version.ref="navigationUiKtx" }
+
+# datastore
+datastore = {group="androidx.datastore", name="datastore-preferences", version.ref="datastore"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

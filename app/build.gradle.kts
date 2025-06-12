@@ -109,4 +109,7 @@ dependencies {
     // navigation
     implementation(libs.navigation)
     implementation(libs.navigationUi)
+
+    // datastore
+    implementation(libs.datastore)
 }
