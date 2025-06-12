@@ -2,12 +2,15 @@ package com.zekewang.basemvvmandroid.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zekewang.basemvvmandroid.network.ApiResult
+import com.zekewang.basemvvmandroid.network.toApiResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 abstract class BaseViewModel : ViewModel() {
 
@@ -66,6 +69,27 @@ abstract class BaseViewModel : ViewModel() {
                 onSuccess(result)
             } catch (e: Throwable) {
                 onError(e)
+            } finally {
+                hideLoading()
+            }
+        }
+    }
+
+    // ======= 通用发送请求操作 =======
+    protected fun <T> launchApi(
+        call: suspend () -> Response<T>,
+        onSuccess: (T) -> Unit,
+        onError: (String) -> Unit = { postToastSync(it) }
+    ) {
+        viewModelScope.launch {
+            try {
+                showLoading()
+                when (val result = call().toApiResult()) {
+                    is ApiResult.Success -> onSuccess(result.data)
+                    is ApiResult.Error -> onError(result.message)
+                }
+            } catch (e: Exception) {
+                onError("发生异常: ${e.message}")
             } finally {
                 hideLoading()
             }

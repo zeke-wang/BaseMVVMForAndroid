@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,12 +19,7 @@ object NetworkModule {
     fun provideBaseUrl(): String = "http://192.168.1.181:12030/"
 
     @Provides
-    fun provideAuthInterceptor(): Interceptor {
-        return AuthInterceptor()
-    }
-
-    @Provides
-    fun provideOkHttpClient(authInterceptor: Interceptor): OkHttpClient {
+    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
             .build()
