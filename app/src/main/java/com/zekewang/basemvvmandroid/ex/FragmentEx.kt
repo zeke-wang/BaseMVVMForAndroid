@@ -1,6 +1,5 @@
 package com.zekewang.basemvvmandroid.ex
 
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -17,12 +16,6 @@ fun <T> Fragment.safeCollect(
         viewLifecycleOwner.repeatOnLifecycle(state) {
             flow.collect { collector(it) }
         }
-    }
-}
-
-fun Fragment.observeToast(flow: Flow<String>) {
-    safeCollect(flow) {
-        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
     }
 }
 
