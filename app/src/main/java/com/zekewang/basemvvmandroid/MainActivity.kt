@@ -3,10 +3,6 @@ package com.zekewang.basemvvmandroid
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.zekewang.basemvvmandroid.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
