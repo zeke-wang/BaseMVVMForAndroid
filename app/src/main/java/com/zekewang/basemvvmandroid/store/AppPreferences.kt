@@ -5,7 +5,13 @@ import android.content.SharedPreferences
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import androidx.core.content.edit
+import javax.inject.Singleton
 
+/**
+ * SharePreference 封装
+ * 现在使用 jetpack datastore 替代
+ */
+@Singleton
 class AppPreferences @Inject constructor(
     @ApplicationContext private val context: Context
 ) {

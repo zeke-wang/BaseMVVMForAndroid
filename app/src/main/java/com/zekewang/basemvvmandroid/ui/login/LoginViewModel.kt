@@ -1,5 +1,6 @@
 package com.zekewang.basemvvmandroid.ui.login
 
+import androidx.lifecycle.viewModelScope
 import com.zekewang.basemvvmandroid.api.LoginApiService
 import com.zekewang.basemvvmandroid.base.BaseViewModel
 import com.zekewang.basemvvmandroid.model.LoginRequest
@@ -8,6 +9,7 @@ import com.zekewang.basemvvmandroid.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +27,9 @@ class LoginViewModel @Inject constructor(
             call = { api.login(LoginRequest(username, password)) },
             onSuccess = { result ->
                 _loginSuccess.value = true
-                authManager.setToken(result.token)
+                viewModelScope.launch {
+                    authManager.loginSuccess(result.token)
+                }
                 postToastSync("登录成功")
             }
         )

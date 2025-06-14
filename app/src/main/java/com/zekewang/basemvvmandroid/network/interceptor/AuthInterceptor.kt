@@ -29,7 +29,7 @@ class AuthInterceptor @Inject constructor(
             logger.d(TAG,"不需要token的请求")
             return chain.proceed(originalRequest)
         }
-        val token = authManager.getToken()
+        val token = authManager.token
 
         // 如果 token 不存在，直接继续原始请求
         if (token.isNullOrEmpty()) {
