@@ -1,6 +1,5 @@
 package com.zekewang.basemvvmandroid.network.interceptor
 
-import android.util.Log
 import com.zekewang.basemvvmandroid.utils.AuthManager
 import com.zekewang.basemvvmandroid.utils.Logger
 import okhttp3.Interceptor

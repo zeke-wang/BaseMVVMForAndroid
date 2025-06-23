@@ -98,9 +98,6 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
-    // koin with mavenCentral
-    implementation("io.insert-koin:koin-android:3.5.3")
-
     // retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
