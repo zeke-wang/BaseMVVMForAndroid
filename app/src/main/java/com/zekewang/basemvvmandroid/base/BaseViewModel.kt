@@ -2,94 +2,41 @@ package com.zekewang.basemvvmandroid.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zekewang.basemvvmandroid.network.ApiResult
-import com.zekewang.basemvvmandroid.network.toApiResult
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
+import com.zekewang.basemvvmandroid.common.Event
+import com.zekewang.basemvvmandroid.common.UiState
+import com.zekewang.basemvvmandroid.eventbus.FlowEventBus
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 abstract class BaseViewModel : ViewModel() {
-
-    // ======= UI 状态 =======
-    private val _loadingFlow = MutableStateFlow(false)
-    val loadingFlow: StateFlow<Boolean> get() = _loadingFlow
-
-    private val _toastFlow = MutableSharedFlow<String>(extraBufferCapacity = 1)
-    val toastFlow: SharedFlow<String> get() = _toastFlow
-
     // ======= loading 控制 =======
-    fun showLoading() {
-        _loadingFlow.value = true
+    fun showLoading(message: String = "加载中") {
+        FlowEventBus.post(Event.ShowLoading(message))
     }
 
     fun hideLoading() {
-        _loadingFlow.value = false
+        FlowEventBus.post(Event.HideLoading)
     }
 
-    suspend fun postToast(message: String) {
-        _toastFlow.emit(message)
+    // ======= toast 控制 =======
+    fun tip(message: String) {
+        FlowEventBus.post(Event.ShowToast(message))
     }
 
-    fun postToastSync(message: String) {
-        _toastFlow.tryEmit(message)
-    }
-
-    // ======= launchFlow：统一封装 Flow 操作 =======
-    protected fun <T> launchFlow(
-        block: suspend () -> Flow<T>,
-        onEach: suspend (T) -> Unit,
-        onError: suspend (Throwable) -> Unit = { postToast("发生错误: ${it.message}") }
-    ) {
-        viewModelScope.launch {
-            try {
-                showLoading()
-                block().collect { onEach(it) }
-            } catch (e: Throwable) {
-                onError(e)
-            } finally {
-                hideLoading()
-            }
-        }
-    }
-
-    // ======= 通用挂载 suspend 操作 =======
-    protected fun <T> launchSuspend(
-        block: suspend () -> T,
-        onSuccess: (T) -> Unit,
-        onError: (Throwable) -> Unit = { postToastSync("发生错误: ${it.message}") }
-    ) {
-        viewModelScope.launch {
-            try {
-                showLoading()
-                val result = block()
-                onSuccess(result)
-            } catch (e: Throwable) {
-                onError(e)
-            } finally {
-                hideLoading()
-            }
-        }
-    }
-
-    // ======= 通用发送请求操作 =======
+    // viewModel通用发送请求更新流状态
     protected fun <T> launchApi(
-        call: suspend () -> Response<T>,
-        onSuccess: (T) -> Unit,
-        onError: (String) -> Unit = { postToastSync(it) }
+        state: MutableStateFlow<UiState<T>>,
+        block: suspend () -> T
     ) {
         viewModelScope.launch {
+            state.value = UiState.Loading
+            showLoading()
             try {
-                showLoading()
-                when (val result = call().toApiResult()) {
-                    is ApiResult.Success -> onSuccess(result.data)
-                    is ApiResult.Error -> onError(result.message)
-                }
+                val result = block()
+                state.value = UiState.Success(result)
             } catch (e: Exception) {
-                onError("发生异常: ${e.message}")
+                showLoading(e.message ?: "未知错误")
+                state.value = UiState.Error(e)
             } finally {
                 hideLoading()
             }

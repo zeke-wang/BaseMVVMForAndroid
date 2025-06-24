@@ -1,6 +1,6 @@
 package com.zekewang.basemvvmandroid.network.interceptor
 
-import com.zekewang.basemvvmandroid.utils.AuthManager
+import com.zekewang.basemvvmandroid.store.datamanage.AuthManager
 import com.zekewang.basemvvmandroid.utils.Logger
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
@@ -28,7 +28,7 @@ class AuthInterceptor @Inject constructor(
             logger.d(TAG,"不需要token的请求")
             return chain.proceed(originalRequest)
         }
-        val token = authManager.token
+        val token = authManager.getToken()
 
         // 如果 token 不存在，直接继续原始请求
         if (token.isNullOrEmpty()) {
