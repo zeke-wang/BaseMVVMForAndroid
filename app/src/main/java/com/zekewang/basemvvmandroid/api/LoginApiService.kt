@@ -20,5 +20,5 @@ interface LoginApiService {
      * 获取用户信息
      */
     @GET("getInfo")
-    suspend fun getInfo(): UserInfoEntity
+    suspend fun getUserInfo(): UserInfoEntity
 }

@@ -6,6 +6,7 @@
 
     <!-- 我的 -->
     <string name="title_admin">我的</string>
+    <string name="logout">退出登录</string>
 
     <!-- 属性 -->
     <string name="property_label_value">%1$s: %2$s</string>
@@ -18,7 +19,9 @@
     <string name="desc_password_icon">密码图标</string>
     <string name="desc_login_logo_icon">登录页标题图标</string>
 
+
     <!-- Common -->
     <string name="common_delete">删除</string>
     <string name="common_close">关闭</string>
+
 </resources>

@@ -5,7 +5,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class UserEntity(
     val avatar: String,
-    val createTime: String,
     val email: String,
     val nickName: String,
     val phonenumber: String,

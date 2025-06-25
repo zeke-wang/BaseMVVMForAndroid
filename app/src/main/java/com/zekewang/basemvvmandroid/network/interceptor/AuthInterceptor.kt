@@ -1,10 +1,15 @@
 package com.zekewang.basemvvmandroid.network.interceptor
 
+import com.zekewang.basemvvmandroid.common.Event
+import com.zekewang.basemvvmandroid.eventbus.FlowEventBus
 import com.zekewang.basemvvmandroid.store.datamanage.AuthManager
 import com.zekewang.basemvvmandroid.utils.Logger
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
 import okhttp3.Response
+import org.json.JSONObject
 import javax.inject.Inject
 
 /**
@@ -40,7 +45,29 @@ class AuthInterceptor @Inject constructor(
             .header("Authorization", "Bearer $token")
             .build()
 
-        return chain.proceed(modifiedRequest)
+        // 发送经过修改的请求，获取响应
+        val response = chain.proceed(modifiedRequest)
+        val body = response.peekBody(Long.MAX_VALUE).string()//<---- Change
+        if (response.isSuccessful) {
+            if (body.contains("code")) {
+                val jsonObject = JSONObject(body)
+                //  val msg = jsonObject.optString("msg")
+                when (jsonObject.optInt("code")) {
+                    401 -> {
+                        FlowEventBus.post(Event.ShowToast("认证过期，请重新登录！"))
+                        // 退出登录
+                        FlowEventBus.post(Event.ForceLogout)
+                    }
+
+                    403 -> {
+                        MainScope().launch {
+                            FlowEventBus.post(Event.ShowToast("没有权限，联系管理员！"))
+                        }
+                    }
+                }
+            }
+        }
+        return response
     }
 
 }

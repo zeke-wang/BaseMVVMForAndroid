@@ -2,7 +2,6 @@ package com.zekewang.basemvvmandroid.network
 
 import com.zekewang.basemvvmandroid.api.LoginApiService
 import com.zekewang.basemvvmandroid.network.interceptor.AuthInterceptor
-import com.zekewang.basemvvmandroid.utils.Logger
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,7 +22,7 @@ object NetworkModule {
     // 日志拦截器
     @Provides
     @Singleton
-    fun provideLogInterceptor(logger: Logger): HttpLoggingInterceptor {
+    fun provideLogInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 

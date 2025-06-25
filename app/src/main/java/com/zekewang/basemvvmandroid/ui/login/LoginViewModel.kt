@@ -5,6 +5,7 @@ import com.zekewang.basemvvmandroid.api.LoginApiService
 import com.zekewang.basemvvmandroid.base.BaseEventViewModel
 import com.zekewang.basemvvmandroid.model.request.LoginRequest
 import com.zekewang.basemvvmandroid.store.datamanage.AuthManager
+import com.zekewang.basemvvmandroid.store.datamanage.UserInfoManager
 import com.zekewang.basemvvmandroid.utils.Logger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -14,6 +15,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val apiService: LoginApiService,
     private val authManager: AuthManager,
+    private val userInfoManager: UserInfoManager,
     private val logger: Logger
 ) : BaseEventViewModel<LoginIntent>() {
 
@@ -24,9 +26,11 @@ class LoginViewModel @Inject constructor(
                 val loginResult = apiService.login(LoginRequest(username, password))
                 if (loginResult.code == 200) {
                     authManager.saveToken(loginResult.token)
-                    val userInfoRes = apiService.getInfo()
+                    val userInfoRes = apiService.getUserInfo()
                     if (userInfoRes.code == 200) {
-                        // 可以把用户信息缓存下来
+                        // 用户信息缓存
+                        userInfoManager.saveUserInfo(userInfoRes)
+//                        logger.d("test", "$userInfoRes")
                         tip("登录成功")
                         // 通知业务处理成功
                         sendPageEvent(LoginIntent.LoginSuccess)
